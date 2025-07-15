@@ -1,0 +1,34 @@
+server:
+  port: 9000
+  address: auth-server ##localhost
+  
+logging:
+  level:
+    org.springframework.boot.context.config: DEBUG
+    org.springframework.boot.env: DEBUG
+    org.springframework.security: trace
+
+spring:
+  security:
+    user:      name: test
+      password: "{noop}test"
+    oauth2:
+      authorizationserver:
+        client:
+          authorization-code-client:
+            registration:
+              client-id: authorization_code-client
+              client-secret: "{noop}secret1"
+              authorization-grant-types: [authorization_code, refresh_token]
+              client-authentication-methods: [client_secret_basic,client_secret_post]
+              redirect-uris: [http://localhost:8082/login/oauth2/code/authorization-code-client]
+              scopes: [openid, profile]
+              post-logout-redirect-uris:              - http://localhost:8082/customoauth/customlogin?logout
+          client-credentials-client:
+            registration:
+              client-id: client_credentials-client
+              client-secret: "{noop}secret2"
+              authorization-grant-types: [client_credentials]
+              client-authentication-methods: [client_secret_basic,client_secret_post]
+              redirect-uris: [http://localhost:8082/login/oauth2/code/client-credentials-client]
+              scopes: [read] 
