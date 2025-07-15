@@ -10,7 +10,8 @@ logging:
 
 spring:
   security:
-    user:      name: test
+    user:
+      name: test
       password: "{noop}test"
     oauth2:
       authorizationserver:
@@ -23,7 +24,9 @@ spring:
               client-authentication-methods: [client_secret_basic,client_secret_post]
               redirect-uris: [http://localhost:8082/login/oauth2/code/authorization-code-client]
               scopes: [openid, profile]
-              post-logout-redirect-uris:              - http://localhost:8082/customoauth/customlogin?logout
+              post-logout-redirect-uris:
+              - http://localhost:8082/customoauth/customlogin?logout
+              - http://localhost:8082/oauthlogin?logout
           client-credentials-client:
             registration:
               client-id: client_credentials-client
